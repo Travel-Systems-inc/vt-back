@@ -1,2 +1,2 @@
 # vt-back
-Backend repo that will connect to firebase
+Repo for the backend of Virtual Travel app
