@@ -39,14 +39,11 @@ public class UserService {
     }
 
     public String createUser(User user) throws ExecutionException, InterruptedException, ParseException {
-        String userId = null;
         user.setCreatedAt(Timestamp.now());
 
         ApiFuture<DocumentReference> future = db.collection("User").add(user);
         DocumentReference userRef = future.get();
-        userId = userRef.getId();
-
-        return userId;
+        return userRef.getId();
     }
 
     public void updateUser(String id, Map<String, String> updateValues) throws ParseException{
