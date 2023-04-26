@@ -4,7 +4,6 @@ import com.example.virtualtravelback.models.User;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.Timestamp;
 import com.google.cloud.firestore.*;
-import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -13,7 +12,8 @@ import java.util.concurrent.ExecutionException;
 
 @Service
 public class UserService {
-    private final Firestore db = FirestoreClient.getFirestore();
+    private final Firestore db;
+    public UserService(Firestore db){ this.db = db; }
 
     public ArrayList<User> getUsers() throws ExecutionException, InterruptedException {
         Query query = db.collection("User");

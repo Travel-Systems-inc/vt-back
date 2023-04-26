@@ -31,6 +31,21 @@ public class UserController {
         return ResponseEntity.status(statusCode).body(returnVal);
     }
 
+    @GetMapping("/{userId}")
+    public ResponseEntity<Map<String,Object>> getUserById(@PathVariable(name="userId") String id){
+        Map<String, Object> returnVal = new HashMap<>();
+        int statusCode = 500;
+
+        try{
+            Object payload = userService.getUser(id);
+            statusCode = 200;
+            returnVal.put("users",payload);
+        } catch (ExecutionException | InterruptedException e) {
+            returnVal.put("error",e.getStackTrace());
+        }
+        return ResponseEntity.status(statusCode).body(returnVal);
+    }
+
     @PostMapping("/")
     public ResponseEntity<Map<String,Object>> createUser(@RequestBody User user){
         Map<String,Object> returnVal = new HashMap<>();
