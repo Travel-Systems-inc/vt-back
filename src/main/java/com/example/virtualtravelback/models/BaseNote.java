@@ -8,14 +8,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.lang.Nullable;
 
-import java.util.ArrayList;
-
 @Data
 @NoArgsConstructor
-public class Note extends BaseNote{
-    private User author;
-    public Note(@Nullable String noteId, String description, @Nullable Timestamp createdAt, GeoPoint location, User author) {
-        super(noteId, description, createdAt, location);
-        this.author = author;
-    }
+@AllArgsConstructor
+public abstract class BaseNote {
+    @DocumentId
+    private @Nullable String noteId;
+    private String description;
+    private @Nullable Timestamp createdAt;
+    private GeoPoint location;
 }

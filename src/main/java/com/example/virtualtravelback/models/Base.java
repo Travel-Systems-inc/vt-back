@@ -1,12 +1,5 @@
 package com.example.virtualtravelback.models;
 
-<<<<<<< HEAD
-
-
-
-public class Base {
-}
-=======
 import com.google.cloud.Timestamp;
 import com.google.cloud.firestore.GeoPoint;
 import com.google.firebase.database.annotations.Nullable;
@@ -26,5 +19,6 @@ public class Base extends BaseBase{
         this.owner = owner;
         this.members = members;
     }
+
+
 }
->>>>>>> origin/main
