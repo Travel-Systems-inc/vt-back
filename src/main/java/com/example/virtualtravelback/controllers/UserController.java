@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
     private final UserService userService;
     public UserController(UserService userService){ this.userService = userService; }

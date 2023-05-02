@@ -13,8 +13,12 @@ import org.springframework.lang.Nullable;
 @AllArgsConstructor
 public abstract class BaseNote {
     @DocumentId
-    private @Nullable String noteId;
-    private String description;
-    private @Nullable Timestamp createdAt;
-    private GeoPoint location;
+    protected @Nullable String noteId;
+    protected String description;
+    protected @Nullable Timestamp createdAt;
+    protected GeoPoint location;
+
+    public void setCreatedAt(Timestamp createdAt){
+        this.createdAt = createdAt;
+    }
 }

@@ -19,5 +19,5 @@ public class BaseBase {
     protected @Nullable Timestamp createdAt;
     protected GeoPoint center;
 
-    void setCreatedAt(@Nullable Timestamp createdAt) { this.createdAt = createdAt; }
+    public void setCreatedAt(@Nullable Timestamp createdAt) { this.createdAt = createdAt; }
 }

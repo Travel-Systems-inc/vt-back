@@ -38,6 +38,12 @@ public class UserService {
         return user;
     }
 
+    public User getUser(DocumentReference userRef) throws ExecutionException, InterruptedException {
+        ApiFuture<DocumentSnapshot> userQuery = userRef.get();
+        DocumentSnapshot userDoc = userQuery.get();
+        return userDoc.toObject(User.class);
+    }
+
     public String createUser(User user) throws ExecutionException, InterruptedException, ParseException {
         user.setCreatedAt(Timestamp.now());
 
@@ -47,7 +53,6 @@ public class UserService {
     }
 
     public void updateUser(String id, Map<String, String> updateValues) throws ParseException{
-
         String [] allowed = {"name", "level", "visible", "email", "friends", "requests"};
         List<String> list = Arrays.asList(allowed);
         Map<String, Object> formattedValues = new HashMap<>();
