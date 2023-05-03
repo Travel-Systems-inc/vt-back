@@ -4,24 +4,22 @@ import com.example.virtualtravelback.util.GeoPointDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.cloud.Timestamp;
 import com.google.cloud.firestore.GeoPoint;
-import com.google.cloud.firestore.annotation.DocumentId;
+import com.google.firebase.database.annotations.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.lang.Nullable;
+
+import java.util.ArrayList;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public abstract class BaseNote {
-    @DocumentId
-    protected @Nullable String noteId;
-    protected String title;
-    protected @Nullable Timestamp createdAt;
+public class RestBaseDTO {
+    private @Nullable String baseId;
+    private String name;
+    private String type;
+    private @Nullable Timestamp createdAt;
     @JsonDeserialize(using = GeoPointDeserializer.class)
-    protected GeoPoint location;
-
-    public void setCreatedAt(@Nullable Timestamp createdAt) {
-        this.createdAt = createdAt;
-    }
+    private GeoPoint center;
+    private ArrayList<String> members;
 }

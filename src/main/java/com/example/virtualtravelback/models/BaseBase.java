@@ -1,5 +1,7 @@
 package com.example.virtualtravelback.models;
 
+import com.example.virtualtravelback.util.GeoPointDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.cloud.Timestamp;
 import com.google.cloud.firestore.GeoPoint;
 import com.google.cloud.firestore.annotation.DocumentId;
@@ -17,7 +19,10 @@ public class BaseBase {
     protected String name;
     protected String type;
     protected @Nullable Timestamp createdAt;
+    @JsonDeserialize(using = GeoPointDeserializer.class)
     protected GeoPoint center;
 
-    public void setCreatedAt(@Nullable Timestamp createdAt) { this.createdAt = createdAt; }
+    public void setCreatedAt(@Nullable Timestamp createdAt){
+        this.createdAt = createdAt;
+    }
 }

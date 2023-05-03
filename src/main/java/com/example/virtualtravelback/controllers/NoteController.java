@@ -1,7 +1,7 @@
 package com.example.virtualtravelback.controllers;
 
-import com.example.virtualtravelback.models.RestNote;
 import com.example.virtualtravelback.services.NoteService;
+import com.example.virtualtravelback.models.RestNoteDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +32,7 @@ public class NoteController {
         return ResponseEntity.status(statusCode).body(returnVal);
     }
     @PostMapping("/")
-    public ResponseEntity<Map<String,Object>> createNote(@RequestBody RestNote user){
+    public ResponseEntity<Map<String,Object>> createNote(@RequestBody RestNoteDTO user){
         Map<String,Object> returnVal = new HashMap<>();
         int statusCode = 500;
 

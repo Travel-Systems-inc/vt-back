@@ -22,13 +22,11 @@ public class RestBase extends BaseBase{
         this.members = members;
     }
 
-    public void setOwner(String owner) {
-        Firestore db = FirestoreClient.getFirestore();
+    public void setOwner(String owner, Firestore db) {
         this.owner = db.collection("Base").document(owner);
     }
 
-    public void setMembers(ArrayList<String> members){
-        Firestore db = FirestoreClient.getFirestore();
+    public void setMembers(ArrayList<String> members, Firestore db){
         this.members = new ArrayList<>();
         for (String s: members){
             this.members.add(db.collection("Base").document(s));

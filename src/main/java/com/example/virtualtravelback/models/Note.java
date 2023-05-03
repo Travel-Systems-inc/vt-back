@@ -14,8 +14,8 @@ import java.util.ArrayList;
 @NoArgsConstructor
 public class Note extends BaseNote{
     private User author;
-    public Note(@Nullable String noteId, String description, @Nullable Timestamp createdAt, GeoPoint location, User author) {
-        super(noteId, description, createdAt, location);
+    public Note(@Nullable String noteId, String title, @Nullable Timestamp createdAt, GeoPoint location, User author) {
+        super(noteId, title, createdAt, location);
         this.author = author;
     }
 }

@@ -3,7 +3,9 @@ package com.example.virtualtravelback.services;
 import com.example.virtualtravelback.models.Note;
 import com.example.virtualtravelback.models.RestNote;
 import com.example.virtualtravelback.models.User;
+import com.example.virtualtravelback.models.RestNoteDTO;
 import com.google.api.core.ApiFuture;
+import com.google.cloud.Timestamp;
 import com.google.cloud.firestore.*;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +19,13 @@ public class NoteService {
     NoteService(Firestore db){
         this.db = db;
     }
+
     private Note getNote(DocumentSnapshot doc) throws ExecutionException, InterruptedException {
         UserService userService = new UserService(db);
         User author = userService.getUser((DocumentReference) doc.get("author"));
 
         return new Note(doc.getId(),
-                doc.getString("description"),
+                doc.getString("title"),
                 doc.getTimestamp("createdAt"),
                 doc.getGeoPoint("location"),
                 author);
@@ -43,7 +46,6 @@ public class NoteService {
         }
         return notes;
     }
-
     public Note getNote(String id) throws ExecutionException, InterruptedException {
         Note note = null;
         DocumentReference noteDoc = db.collection("Note").document(id);
@@ -53,20 +55,25 @@ public class NoteService {
             note = getNote(doc);
         return note;
     }
-
     public Note getNote(DocumentReference postRef) throws ExecutionException, InterruptedException {
         DocumentSnapshot doc = postRef.get().get();
         return getNote(doc);
     }
+    public String createNote(RestNoteDTO noteDTO) throws ExecutionException, InterruptedException {
+        RestNote note = new RestNote(noteDTO.getNoteId(),
+                noteDTO.getTitle(),
+                noteDTO.getCreatedAt(),
+                noteDTO.getLocation(),
+                null); // Set author to null initially
+        note.setCreatedAt(Timestamp.now());
+        note.setAuthor(noteDTO.getAuthor(),db);
 
-    public String createNote(RestNote note) throws ExecutionException, InterruptedException {
         ApiFuture<DocumentReference> future = db.collection("Note").add(note);
         DocumentReference noteRef = future.get();
         return noteRef.getId();
     }
-
     public void updateNote(String id, Map<String, Object> updateValues) throws ParseException {
-        String [] allowed = {"author","description","location"};
+        String [] allowed = {"author","title","location"};
         List<String> list = Arrays.asList(allowed);
         Map<String, Object> formattedValues = new HashMap<>();
 
