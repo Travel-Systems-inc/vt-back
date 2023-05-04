@@ -29,13 +29,12 @@ public class UserService {
     }
 
     public User getUser(String userId) throws ExecutionException, InterruptedException {
-        User user = null;
-
         DocumentReference doc = db.collection("User").document(userId);
         ApiFuture<DocumentSnapshot> future = doc.get();
-        user = future.get().toObject(User.class);
-
-        return user;
+        DocumentSnapshot docsnap = future.get();
+        if (docsnap.exists())
+            return docsnap.toObject(User.class);
+        return null;
     }
 
     public User getUser(DocumentReference userRef) throws ExecutionException, InterruptedException {

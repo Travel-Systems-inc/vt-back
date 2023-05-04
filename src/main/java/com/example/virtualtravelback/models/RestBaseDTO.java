@@ -21,5 +21,6 @@ public class RestBaseDTO {
     private @Nullable Timestamp createdAt;
     @JsonDeserialize(using = GeoPointDeserializer.class)
     private GeoPoint center;
+    private String owner;
     private ArrayList<String> members;
 }

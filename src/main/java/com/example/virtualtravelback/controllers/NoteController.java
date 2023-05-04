@@ -31,6 +31,19 @@ public class NoteController {
         }
         return ResponseEntity.status(statusCode).body(returnVal);
     }
+    @GetMapping("/{noteId}")
+    public ResponseEntity<Map<String,Object>> getNoteById(@PathVariable(name="noteId") String id) {
+        Map<String,Object> returnVal = new HashMap<>();
+        int statusCode = 500;
+        try {
+            Object payload = noteService.getNote(id);
+            statusCode = 200;
+            returnVal.put("notes",payload);
+        } catch (ExecutionException | InterruptedException e) {
+            returnVal.put("Cannot fetch notes from database.", e.getStackTrace());
+        }
+        return ResponseEntity.status(statusCode).body(returnVal);
+    }
     @PostMapping("/")
     public ResponseEntity<Map<String,Object>> createNote(@RequestBody RestNoteDTO user){
         Map<String,Object> returnVal = new HashMap<>();
