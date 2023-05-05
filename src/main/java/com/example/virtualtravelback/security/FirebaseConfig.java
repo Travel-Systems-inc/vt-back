@@ -36,9 +36,12 @@ public class FirebaseConfig {
             return FirebaseApp.getInstance();
         }
     }
-
     @Bean
     public Firestore firestore(FirebaseApp firebaseApp) {
         return FirestoreClient.getFirestore(firebaseApp);
+    }
+    @Bean
+    public FirebaseAuth firebaseAuth(FirebaseApp firebaseApp){
+        return FirebaseAuth.getInstance(firebaseApp);
     }
 }
