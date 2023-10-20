@@ -19,6 +19,4 @@ public class Base extends BaseBase{
         this.owner = owner;
         this.members = members;
     }
-
-
 }
