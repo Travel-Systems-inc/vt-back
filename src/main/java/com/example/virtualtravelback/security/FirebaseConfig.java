@@ -10,9 +10,7 @@ import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 
 @Configuration
 public class FirebaseConfig {
@@ -20,21 +18,17 @@ public class FirebaseConfig {
     public FirebaseApp firebaseApp() throws IOException {
         ClassLoader loader = VirtualTravelBackApplication.class.getClassLoader();
 
-        //opens the file stored in resources
-        File file = new File(loader.getResource("serviceAccountKey.json").getFile());
-        //reads the data from the file
-        FileInputStream serviceAccount = new FileInputStream(file.getAbsolutePath());
-
-        //connect to Firebase
-        FirebaseOptions options = new FirebaseOptions.Builder()
-                .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                .build();
-        //check if there is an app
-        if (FirebaseApp.getApps().isEmpty()) {
-            return FirebaseApp.initializeApp(options);
-        } else {
-            return FirebaseApp.getInstance();
+        //opens the file stored in resource
+        InputStream file = loader.getResourceAsStream("serviceAccountKey.json");
+        if (file == null) {
+            throw new FileNotFoundException("Service account key file not found.");
         }
+
+        FirebaseOptions options = new FirebaseOptions.Builder()
+                .setCredentials(GoogleCredentials.fromStream(file))
+                .build();
+
+        return FirebaseApp.initializeApp(options);
     }
     @Bean
     public Firestore firestore(FirebaseApp firebaseApp) {
