@@ -69,7 +69,7 @@ public class BaseController {
         try{
             baseService.updateBase(id,updateValues);
             statusCode = 201;
-            returnVal.put("Update successful for base with id "+id,"");
+            returnVal.put("Update very successful for base with id "+id,"");
         } catch (ParseException e){
             statusCode = 400;
             returnVal.put("Cannot parse JSON",e.getStackTrace());
